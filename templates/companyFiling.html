@@ -655,21 +655,28 @@
       <!----------- 3rd column ---------------->
       <!----------- RIGHT MENU ---------------->
 
-      <div class="col-sm-3" style="background-color:lavenderblush;height:90vh;overflow:scroll;" id="2nd">
-        <!--doc-->
-        {% autoescape off %}
-          <iframe id="iFrame" src="{% static 'filings/' %}{{ object_list.3.filingpath }}" frameborder="0" position="absolute" height="100%" width="100%" style="background: #FFFFFF;"></iframe>
-        {% endautoescape %}
-
+      <div class="col-sm-3" id="3rd" style="height:90vh;overflow:scroll;">
+        <div style="text-align:center;font-family:Helvetica,sans-serif;font-size:10pt;">
+          <hr style="margin-top:1%;">
+          <h5 style="margin:0px;font-size:1.3em;color:black;font-weight:bold;">{{ object_list.1.0 }} Earnings {{ object_list.3.filingdate }}</h5>
+          <h5 style="margin:10px;font-size:1.3em;color:black;font-weight:bold;">{{ object_list.1.1 }} {{ object_list.3.filingtype }} Report</h5>
+          <hr style="margin-bottom:1%;">
+        </div>
+        <table class="table table-striped table-hover " id="3rdmenu">
+          <thead>
+            <tr>
+              <th>Company and Filing List for Test</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for filing in object_list.2 %}
+              <tr>
+                  <td>{{ object_list.1.1 }}, {{ filing.name }}, {{ filing.cik }}, {{ filing.filingtype }}, {{ filing.filingdate }}, <a href="{% url 'companyFiling' %}?q={{ object_list.0.0 }}&fid={{ filing.id }}">Filed {{ filing.filingdate }}</a>, {{ filing.filingpath }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-
-      <!-- edit document -->
-      <script>
-        $('iframe').load(function() {
-          $("#iFrame").contents().find("FILENAME").css('display', 'none');
-      });
-        document.getElementById('iFrame2').contentWindow.document.write("{% static 'filings/' %}{{ object_list.3.filingpath }}");
-      </script>
 
       <script>
         
